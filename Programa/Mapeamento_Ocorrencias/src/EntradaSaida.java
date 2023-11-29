@@ -12,26 +12,24 @@ public class EntradaSaida {
         return scanf.nextLine();
     }
 
-      /* 
-    public static void inserirDados(String tipo)
+    public static Object inserirDados(String tipo)
     {
         Scanner scanf= new Scanner(System.in);
         switch (tipo.toLowerCase()) {
             case "boolean":
-                scanf.nextBoolean();
-                break;
+                boolean dadoBoolean=scanf.nextBoolean();
+                return dadoBoolean;
             case "double":
-                double dado=scanf.nextDouble();
-                return dado;
+                double dadodouble=scanf.nextDouble();
+                return dadodouble;
             case "int":
-                scanf.nextInt();
-                break;
+                int dadoInt=scanf.nextInt();
+                return dadoInt;
             case "string":
-                scanf.nextLine();
-                break;
+                String dadoString=scanf.nextLine();
+                return dadoString;
             default:
-                System.out.println("ERROR NO TIPO PASSADO");
-                break;
+                return "ERROR NO TIPO PASSADO";
         }
-    }*/
+    }
 }

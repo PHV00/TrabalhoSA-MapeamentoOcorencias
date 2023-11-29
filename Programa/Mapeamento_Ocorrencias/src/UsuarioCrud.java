@@ -1,25 +1,36 @@
-import java.util.ArrayList;
-
 public class UsuarioCrud {
-    private ArrayList<Usuario> listaUsuarios = new ArrayList<Usuario>();//checar o private 
+    
+    BancoDeDados bd;
+    private int cpf;
+    private String nome;
+    private int telefone;
+    private int senha; 
+
+    public UsuarioCrud(BancoDeDados bd)
+    {
+        this.bd=bd;
+    }
 
     public void cadastrarUsuario()
     {
-        int cpf=EntradaSaida.inserirValorInt("Digite seu cpf:");
-        int telefone=EntradaSaida.inserirValorInt("Digite seu telefone:");
-        String nome=EntradaSaida.inserirDado("Digite seu nome completo:");
-        int senha=EntradaSaida.inserirValorInt("Digite sua senha:"); 
+        cpf=EntradaSaida.inserirValorInt("Digite seu cpf:");
+        telefone=EntradaSaida.inserirValorInt("Digite seu telefone:");
+        nome=EntradaSaida.inserirValorString("Digite seu nome completo:");
+        senha=EntradaSaida.inserirValorInt("Digite sua senha:"); 
         Usuario usuario= new Usuario(cpf, nome, telefone, senha);
-        this.listaUsuarios.add(usuario);
+        bd.adicionarUsuario(usuario);
     }
-    public void encontrarUsuario(String nome)
-    {
-        for (Usuario usuario : listaUsuarios) {
-            if(nome==listaUsuarios.set(0, usuario).toString())
-            {
 
-            }
+    public void excluirUsuario()
+    {
+        if(EntradaSaida.inserirValorString("Confirmar? S/N").toUpperCase()=="S")
+        {
+            
         }
+    }
+
+    public void executarCrud() {
+        EntradaSaida.mostrarMsg("1-Cadastrar Usuario");
     }
 
 }
