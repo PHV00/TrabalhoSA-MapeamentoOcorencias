@@ -1,6 +1,10 @@
 public class Program {
-    public static void main(String[] args) {
-        int a=EntradaSaida.inserirValorInt("Digiet um numero:");
-        System.out.println(a);
+    public static void main(String[] args) {//
+        //Rever tudo desdo conceito do crud ,até oque bd tem que fazer,, e como aplicar cada um.Acho q bd é o crud e o crud é o bd, olha os nome e compara com o conceito
+        BancoDeDados bancoDeDados= new BancoDeDados(); 
+        Validacao validacao= new Validacao(bancoDeDados);
+        UsuarioCrud usuario= new UsuarioCrud(bancoDeDados,validacao);
+        
+        usuario.executarCrud();
     }
 }
