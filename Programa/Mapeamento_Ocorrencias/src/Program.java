@@ -1,3 +1,5 @@
+import org.omg.CORBA.MARSHAL;
+
 public class Program {
     public static void main(String[] args) {//
         //Rever tudo desdo conceito do crud ,até oque bd tem que fazer,, e como aplicar cada um.Acho q bd é o crud e o crud é o bd, olha os nome e compara com o conceito
@@ -5,6 +7,8 @@ public class Program {
         Validacao validacao= new Validacao(bancoDeDados);
         UsuarioCrud usuario= new UsuarioCrud(bancoDeDados,validacao);
         
-        usuario.executarCrud();
+        //Mapa.testeTamanhoTela();
+        Mapa m=new Mapa();
+        m.testeMapa();
     }
 }
