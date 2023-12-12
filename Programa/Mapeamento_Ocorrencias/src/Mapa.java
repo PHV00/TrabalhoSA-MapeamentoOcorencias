@@ -1,24 +1,19 @@
 import java.util.ArrayList;
-import java.util.List;
-
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.awt.image.BufferedImage;
 
 public class Mapa {
     //diretorio da imagem
-    public final static String IMG = "Mapa.png";
-    public final static String IMGdiretorio = "D:\\Users\\pedro_vitoreti\\Desktop\\TrabalhoSA-MapeamentoOcorencias\\Programa\\Mapeamento_Ocorrencias\\src\\Mapa.png";
+    //caso queira prociguir na ideia de ler uma imagem e transofrmar em vetor
+    //public final static String IMG = "Mapa.png";
+    //public final static String IMGdiretorio = "D:\\Users\\pedro_vitoreti\\Desktop\\TrabalhoSA-MapeamentoOcorencias\\Programa\\Mapeamento_Ocorrencias\\src\\Mapa.png";
     
+    //fazer uma lista de char e ou string para poder manipular os pontos especificos do mapa de caracteres que é mostrado na tela
+
     public final static int altura=40;
     public final static int largura=179;
 
-    private static List<String> mapaCaractere = new ArrayList<String>();
-    private static List<Integer> mapaCaractereNumeros = new ArrayList<Integer>();
+    private ArrayList<Ponto> listaPontos = new ArrayList<Ponto>();
     private int[][] mapaNumerico = new int[altura][largura];//tamanho tela alturaxlargura= 40x 132 o vetor começa no zero, rever
-
-
+    private String[][] mapaString= new String[altura][largura];
 
     public static void testeTamanhoTela()
     {
@@ -31,27 +26,29 @@ public class Mapa {
     public void testeMapa()
     {
         //limpa/zeratudo
-        this.zerarTela();
+        this.zerarMapa();
         //montarmapa
         this.montarMapa();
         //mostrar matrix numerica
-        this.mostrarMapa();
+        //this.mostrarMapa();
         //mostra matrix caractere
         this.mostrarMapaCaractere();
     }
-    public void zerarTela()
+    public void zerarMapa()
+    {
+        for(int i=0;i<altura;i++)
         {
-            for(int i=0;i<altura;i++)
+            for(int j=0;j<largura;j++)
             {
-                for(int j=0;j<largura;j++)
-                {
-                    mapaNumerico[i][j]=0;
-                }
+                mapaNumerico[i][j]=0;
             }
         }
+    }
     
     public void montarMapa()
-    {   //linhas
+    {   
+        this.preencherTransversalDireitaBaixo(10,10);
+        //linhas
         this.preencherLinha(10-1);
         this.preencherLinha(20-1);
         this.preencherLinha(30-1);
@@ -67,7 +64,33 @@ public class Mapa {
         this.limpaRuaLinha(10);
         this.limpaRuaLinha(20);
         this.limpaRuaLinha(30);
-        this.mapaNumerico[30][30]=4;
+        //this.mapaNumerico[30][30]=4;
+        this.adicionarPontoLista(10,10,"vermelho","&");
+    }
+    public void adicionarPontoMapa()
+    {
+        for(int k=0;k<this.listaPontos.size();k++)
+        {
+            Ponto ponto=this.listaPontos.get(k);
+            mapaString[ponto.getX()][ponto.getY()]=ponto.getCor()+ponto.getCaractere();
+        }
+    }
+    public void mostrarMapa() {
+        //funciona!!!!!!!!!!!
+        String mapa="";
+        for(int i=0;i<altura;i++)
+        {
+            for(int j=0;j<largura;j++)
+            {
+               mapa+=mapaNumerico[i][j];
+            }
+        }
+        System.out.println(mapa);
+    }
+
+    public void adicionarPontoLista(int x,int y, String cor,String caractere)
+    {
+        this.listaPontos.add(new Ponto(x,y,cor,caractere));
     }
 
     public void limpaRuaColuna(int cordenada)
@@ -109,16 +132,12 @@ public class Mapa {
         }
     }
 
-    public void mostrarMapa() {
-        String mapa="";
-        for(int i=0;i<altura;i++)
+    public void preencherTransversalDireitaBaixo(int cordenadaEsquerda,int cordenadaDireita)
+    {
+        for(int i=cordenadaEsquerda,j=cordenadaDireita;i<cordenadaDireita;i++,j--)
         {
-            for(int j=0;j<largura;j++)
-            {
-               mapa+=mapaNumerico[i][j];
-            }
+            mapaNumerico[j][i]=5;
         }
-        System.out.println(mapa);
     }
 
     public void mostrarMapaCaractere()
@@ -132,7 +151,8 @@ public class Mapa {
                if(mapaNumerico[i][j]==1)mapa+="=";
                if(mapaNumerico[i][j]==2)mapa+="|";
                if(mapaNumerico[i][j]==3)mapa+="+";
-               if(mapaNumerico[i][j]==4)mapa+="\u001B[31m§\u001B[00m";
+               if(mapaNumerico[i][j]==4)mapa+="§";
+               if(mapaNumerico[i][j]==5)mapa+="\\";
             }
         }
         System.out.println(mapa); 
