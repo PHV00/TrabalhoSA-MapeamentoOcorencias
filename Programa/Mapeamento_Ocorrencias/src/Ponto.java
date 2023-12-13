@@ -2,6 +2,13 @@ public class Ponto {
     private int x;
     private int y;
     private String cor;
+    private String caractere;
+    public String getCaractere() {
+        return caractere;
+    }
+    public void setCaractere(String caractere) {
+        this.caractere = caractere;
+    }
     public int getX() {
         return x;
     }
@@ -20,5 +27,11 @@ public class Ponto {
     public void setCor(String cor) {
         this.cor = cor;
     }
-    
+    public Ponto(int x,int y,String cor,String car)
+    {
+        this.x=x;
+        this.y=y;
+        this.cor=cor;
+        this.caractere=car;
+    }
 }

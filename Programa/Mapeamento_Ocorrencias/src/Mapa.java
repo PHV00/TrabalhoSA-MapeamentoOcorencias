@@ -7,7 +7,7 @@ public class Mapa {
     //public final static String IMGdiretorio = "D:\\Users\\pedro_vitoreti\\Desktop\\TrabalhoSA-MapeamentoOcorencias\\Programa\\Mapeamento_Ocorrencias\\src\\Mapa.png";
     
     //fazer uma lista de char e ou string para poder manipular os pontos especificos do mapa de caracteres que é mostrado na tela
-
+    //fazer função para atribuir strings certas e printa a lista de string como mapa final 
     public final static int altura=40;
     public final static int largura=179;
 
@@ -47,7 +47,7 @@ public class Mapa {
     
     public void montarMapa()
     {   
-        this.preencherTransversalDireitaBaixo(10,10);
+
         //linhas
         this.preencherLinha(10-1);
         this.preencherLinha(20-1);
@@ -61,19 +61,70 @@ public class Mapa {
         this.preencherColuna(150-1);
         this.preencherColuna(90-1);
         this.preencherColuna(120-1);
+        this.preencherDiagnalDireitaTopo(20, 20, 40, 10);
         this.limpaRuaLinha(10);
         this.limpaRuaLinha(20);
         this.limpaRuaLinha(30);
         //this.mapaNumerico[30][30]=4;
-        this.adicionarPontoLista(10,10,"vermelho","&");
+        this.adicionarPontoLista(10,10,"\u001B[0;31m","&");
+        this.adicionarPontoLista(20, 20,"\u001B[0;32m","§");
+       
+        this.montarMapaCaractere();
+        this.adicionarPontoMapa();
+    }
+     public void mostrarMapaCaractere()
+    {
+    //    String mapa="";
+    //     for(int i=0;i<altura;i++)
+    //     {
+    //         for(int j=0;j<largura;j++)
+    //         {
+    //            if(mapaNumerico[i][j]==0)mapa+=" ";
+    //            if(mapaNumerico[i][j]==1)mapa+="=";
+    //            if(mapaNumerico[i][j]==2)mapa+="|";
+    //            if(mapaNumerico[i][j]==3)mapa+="+";
+    //            if(mapaNumerico[i][j]==4)mapa+="§";
+    //            if(mapaNumerico[i][j]==5)mapa+="\\";
+    //         }
+    //     }
+    //     System.out.println(mapa); 
+        String mapa="";
+        for(int i=0;i<altura;i++)
+        {
+            for(int j=0;j<largura;j++)
+            {
+                mapa+=mapaString[i][j];
+            }
+        }
+        System.out.println(mapa);
     }
     public void adicionarPontoMapa()
     {
         for(int k=0;k<this.listaPontos.size();k++)
         {
             Ponto ponto=this.listaPontos.get(k);
-            mapaString[ponto.getX()][ponto.getY()]=ponto.getCor()+ponto.getCaractere();
+            mapaString[ponto.getX()][ponto.getY()]=ponto.getCor()+ponto.getCaractere()+"\u001B[2;37m";
         }
+    }
+    public void montarMapaCaractere()//monta um mapa com todos os caracteres baseado na matrix de numeros
+    {
+        for(int i=0;i<altura;i++)
+        {
+            for(int j=0;j<largura;j++)
+            {
+               mapaString[i][j]=""+inserirCaractere(mapaNumerico[i][j]);
+            }
+        }
+    }
+    public String inserirCaractere(int caractere)
+    {
+        String simbolo="";
+        if(caractere==0)simbolo=" ";
+        if(caractere==1)simbolo="=";
+        if(caractere==2)simbolo="|";
+        if(caractere==3)simbolo="+";
+        if(caractere==4)simbolo="\\";
+        return simbolo;
     }
     public void mostrarMapa() {
         //funciona!!!!!!!!!!!
@@ -132,30 +183,17 @@ public class Mapa {
         }
     }
 
-    public void preencherTransversalDireitaBaixo(int cordenadaEsquerda,int cordenadaDireita)
+    public void preencherDiagnalDireitaTopo(int cordenadaTopoX, int cordenadaTopoY, int cordenadaBaixoX, int cordenadaBaixoY)
     {
-        for(int i=cordenadaEsquerda,j=cordenadaDireita;i<cordenadaDireita;i++,j--)
+        //fazer validação de todos os pontos, onde se passar dos limites do mapa não permite a criação da diagonal, ou só vai até o limite estabelecido
+        //fazer com try cactch pq dá erro acima de 40 ou (179 talvez)
+        int alturaD=cordenadaBaixoY-cordenadaTopoY;
+        int comprimentoD=cordenadaBaixoX-cordenadaTopoX;
+        //for duplo com um i e j juntos num só for(pensando na rua(parte do meio))
+        for(int i=cordenadaTopoY,j=cordenadaTopoY;i<cordenadaBaixoX||j<cordenadaBaixoY;i++,j++)
         {
-            mapaNumerico[j][i]=5;
+            mapaNumerico[i][j]=4;
         }
-    }
-
-    public void mostrarMapaCaractere()
-    {
-       String mapa="";
-        for(int i=0;i<altura;i++)
-        {
-            for(int j=0;j<largura;j++)
-            {
-               if(mapaNumerico[i][j]==0)mapa+=" ";
-               if(mapaNumerico[i][j]==1)mapa+="=";
-               if(mapaNumerico[i][j]==2)mapa+="|";
-               if(mapaNumerico[i][j]==3)mapa+="+";
-               if(mapaNumerico[i][j]==4)mapa+="§";
-               if(mapaNumerico[i][j]==5)mapa+="\\";
-            }
-        }
-        System.out.println(mapa); 
     }
 
     public static void cadastrarMapa()

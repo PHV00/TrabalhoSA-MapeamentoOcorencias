@@ -38,14 +38,16 @@ Light Gray  0;37     White         1;37
 // System.Console.SetCursorPosition(Int32 left, Int32 top)   
     public void testeTela(String msg)
     {
-        String comando="cls";
-        Process process;
-        try {
-            process=Runtime.getRuntime().exec(comando);
-        } catch (Exception e) {
-            EntradaSaida.mostrarMsg("ERRO");
-        }
-        //System.out.println(limpatela+"ooo"+vermelho+msg+"oooooo"+restauraPosisao+branco+"ooooooo");
+        // String comando="cls";
+        // Process process;
+        // try {
+        //     process=Runtime.getRuntime().exec(comando);
+        // } catch (Exception e) {
+        //     EntradaSaida.mostrarMsg("ERRO");
+        // }
+        String a="";
+        a+="$";
+        System.out.println(limpatela+a+"ooo"+vermelho+msg+"aaaaaa"+restauraPosisao+branco+"poppppppppppp");
         System.out.println(msg);
         System.out.println(posicao);
     }
