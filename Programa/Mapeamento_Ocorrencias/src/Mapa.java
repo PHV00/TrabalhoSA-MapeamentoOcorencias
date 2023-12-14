@@ -1,5 +1,28 @@
 import java.util.ArrayList;
+//
 
+
+
+
+
+
+
+
+
+//falta fazer a função limpa rua das diagonais e a intersecção, das diagonais e colocar um x sla
+
+
+
+
+
+
+
+
+
+
+
+
+//
 public class Mapa {
     //diretorio da imagem
     //caso queira prociguir na ideia de ler uma imagem e transofrmar em vetor
@@ -56,23 +79,61 @@ public class Mapa {
         this.preencherColuna(10-1);
         this.preencherColuna(20-1);
         this.preencherColuna(30-1);
+        this.preencherColuna(50-1);
         this.preencherColuna(70-1);
         this.preencherColuna(80-1);
-        this.preencherColuna(150-1);
         this.preencherColuna(90-1);
+        this.preencherColuna(150-1);
         this.preencherColuna(120-1);
-        this.preencherDiagnalDireitaTopo(20, 20, 40, 10);
+        this.preencherDiagnalDireitaTopo(0, 55, 40);
+        this.preencherDiagnalEsquerdaTopo(0, 45, 40);
+        this.preencherDiagnalDireitaTopo(0, 60, 40);
+        this.preencherDiagnalEsquerdaTopo(0, 150, 40);
+        this.preencherDiagnalDireitaTopo(20, 50, 40);
+        this.preencherDiagnalEsquerdaTopo(10, 120, 30);
         this.limpaRuaLinha(10);
         this.limpaRuaLinha(20);
         this.limpaRuaLinha(30);
+        this.limpaRuaColuna(50);
+        this.limpaRuaColuna(10);
+        this.limpaRuaColuna(20);
+        this.limpaRuaColuna(30);
+        this.limpaRuaColuna(70);
+        this.limpaRuaColuna(80);
+        this.limpaRuaColuna(90);
+        this.limpaRuaColuna(120);
+        this.limpaRuaColuna(150);
         //this.mapaNumerico[30][30]=4;
-        this.adicionarPontoLista(10,10,"\u001B[0;31m","&");
-        this.adicionarPontoLista(20, 20,"\u001B[0;32m","§");
-       
+        this.adicionarPontoLista(10,10,"\u001B[0;31m","x");
+        this.adicionarPontoLista(20, 20,"\u001B[0;32m","\u00F8");
         this.montarMapaCaractere();
         this.adicionarPontoMapa();
+        //this.mostrarCoordenadas();
     }
-     public void mostrarMapaCaractere()
+    public void mostrarCoordenadas()//pesquise split em java
+    {//jogar para só um for 
+        int k=0;
+        for(int i=0;i<4;i++)
+        {
+            for(int j=0;j<10;j++)
+            {
+                mapaString[j][0]=""+i;
+                mapaString[j][1]=""+j;
+            }
+        }
+        // for(int i=0;i<40;i++)
+        // {
+        //     if(i<10)mapaString[i][0]=""+i;
+        //     else mapaString[][]=""+i;
+        // }
+        
+        // for(int j=0;j<179;j++)
+        // {  
+        //     mapaString[0][j]="";
+        // }
+    }
+
+    public void mostrarMapaCaractere()
     {
     //    String mapa="";
     //     for(int i=0;i<altura;i++)
@@ -124,6 +185,7 @@ public class Mapa {
         if(caractere==2)simbolo="|";
         if(caractere==3)simbolo="+";
         if(caractere==4)simbolo="\\";
+        if(caractere==5)simbolo="/";
         return simbolo;
     }
     public void mostrarMapa() {
@@ -146,16 +208,16 @@ public class Mapa {
 
     public void limpaRuaColuna(int cordenada)
     {
-            for(int j=cordenada;j<altura;j++)
-            {
-                if(j==cordenada) mapaNumerico[cordenada][j]=0;
-            }
+        for(int j=0;j<altura;j++)
+        {
+            mapaNumerico[j][cordenada]=0;
+        }
     }
     public void limpaRuaLinha(int cordenada)
     {
         for(int j=0;j<largura;j++)
         {
-            if(mapaNumerico[cordenada][j]!=0) mapaNumerico[cordenada][j]=0;
+            if(mapaNumerico[cordenada][j]!=0) mapaNumerico[cordenada][j]=0;//talvez if desnecesssário
         }
     }
     public void preencherColuna(int cordenada)
@@ -183,16 +245,42 @@ public class Mapa {
         }
     }
 
-    public void preencherDiagnalDireitaTopo(int cordenadaTopoX, int cordenadaTopoY, int cordenadaBaixoX, int cordenadaBaixoY)
+    public void preencherDiagnalDireitaTopo(int cordenadaTopoX, int cordenadaTopoY, int cordenadaBaixoY)//a definição de x e y estão erradas
     {
         //fazer validação de todos os pontos, onde se passar dos limites do mapa não permite a criação da diagonal, ou só vai até o limite estabelecido
         //fazer com try cactch pq dá erro acima de 40 ou (179 talvez)
-        int alturaD=cordenadaBaixoY-cordenadaTopoY;
-        int comprimentoD=cordenadaBaixoX-cordenadaTopoX;
+        // int alturaD=cordenadaBaixoY-cordenadaTopoY;
+        // int comprimentoD=cordenadaBaixoX-cordenadaTopoX;
         //for duplo com um i e j juntos num só for(pensando na rua(parte do meio))
-        for(int i=cordenadaTopoY,j=cordenadaTopoY;i<cordenadaBaixoX||j<cordenadaBaixoY;i++,j++)
+        try
+        {        
+            for(int i=cordenadaTopoX,j=cordenadaTopoY;i<cordenadaBaixoY;i++,j++)//altere os mais e menos para obter algum dos 4 quadros
+            {
+                mapaNumerico[i][j]=0;
+                mapaNumerico[i][j+1]=4;
+                mapaNumerico[i][j-1]=4;
+            }
+        }catch(Exception e)
         {
-            mapaNumerico[i][j]=4;
+        }
+    }
+    public void preencherDiagnalEsquerdaTopo(int cordenadaTopoX, int cordenadaTopoY, int cordenadaBaixoY)//a definição de x e y estão erradas
+    {
+        //fazer validação de todos os pontos, onde se passar dos limites do mapa não permite a criação da diagonal, ou só vai até o limite estabelecido
+        //fazer com try cactch pq dá erro acima de 40 ou (179 talvez)
+        // int alturaD=cordenadaBaixoY-cordenadaTopoY;
+        // int comprimentoD=cordenadaBaixoX-cordenadaTopoX;
+        //for duplo com um i e j juntos num só for(pensando na rua(parte do meio))
+        try
+        {        
+            for(int i=cordenadaTopoX,j=cordenadaTopoY;i<cordenadaBaixoY;i++,j--)//altere os mais e menos para obter algum dos 4 quadros
+            {
+                mapaNumerico[i][j]=0;
+                mapaNumerico[i][j+1]=5;
+                mapaNumerico[i][j-1]=5;
+            }
+        }catch(Exception e)
+        {
         }
     }
 
