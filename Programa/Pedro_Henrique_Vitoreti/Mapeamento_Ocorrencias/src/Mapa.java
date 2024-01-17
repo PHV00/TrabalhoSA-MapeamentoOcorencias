@@ -1,28 +1,7 @@
 import java.util.ArrayList;
-//
-
-
-
-
-
-
-
-
 
 //falta fazer a função limpa rua das diagonais e a intersecção, das diagonais e colocar um x sla
 
-
-
-
-
-
-
-
-
-
-
-
-//
 public class Mapa {
     //diretorio da imagem
     //caso queira prociguir na ideia de ler uma imagem e transofrmar em vetor
@@ -70,7 +49,6 @@ public class Mapa {
     
     public void montarMapa()
     {   
-
         //linhas
         this.preencherLinha(10-1);
         this.preencherLinha(20-1);

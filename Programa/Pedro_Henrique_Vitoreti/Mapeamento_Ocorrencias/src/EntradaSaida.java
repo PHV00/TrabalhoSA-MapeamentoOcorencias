@@ -13,9 +13,20 @@ public class EntradaSaida {
     
     public static String inserirValorString(String msg)//apenas pega o dado
     {
-        Scanner scanf= new Scanner(System.in);
-        System.out.println(msg);
-        return scanf.nextLine();
+        boolean erro=false;
+        String leitura="";
+        do{
+            System.out.println(msg);
+            try{
+                leitura=System.console().readLine();
+                erro=false;
+            }catch(Exception e)
+            {
+                System.out.println("Erro! tipo inválido");
+                erro=true;
+            }
+        }while(erro==true);
+        return leitura;
     }
     
     public static void mostrarMsg(String msg) {

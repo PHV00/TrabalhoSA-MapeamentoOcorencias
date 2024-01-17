@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class BancoDeDados {
     private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();//checar o private 
+    private ArrayList<int[][]> mapas = new ArrayList<int[][]>();
+
     //Usuario logado
     private Usuario usuarioLogado;
     private int posicaoUsuarioLogado;
@@ -10,26 +12,24 @@ public class BancoDeDados {
     public Usuario getUsuarioLogado() {
         return usuarioLogado;
     }
-
     public void setUsuarioLogado(Usuario usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
     }
-
     public int getPosicaoUsuarioLogado() {
         return posicaoUsuarioLogado;
     }
-
     public void setPosicaoUsuarioLogado(int posicaoUsuarioLogado) {
         this.posicaoUsuarioLogado = posicaoUsuarioLogado;
     }
 
     public BancoDeDados()
     {
-        
-        Usuario publico= new Usuario(000, "publico", 000, 000);
+        Usuario publico= new Usuario(000, "Publico", 000, 000);
         usuarioLogado=publico;
-        Usuario adm= new Usuario(001,"adm",001,1234);
+        Usuario adm= new Usuario(001,"ADM",001,1234);
         usuarios.add(adm);
+        setUsuarioLogado(publico);
+        setPosicaoUsuarioLogado(0);
     }
     public void inserirUsuario(Usuario usuario)
     {
